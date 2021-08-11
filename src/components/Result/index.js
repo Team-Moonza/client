@@ -28,6 +28,7 @@ function Result(props) {
       );
     });
   }
+
   return <div>{mapRepo()}</div>;
 }
 export default Result;
