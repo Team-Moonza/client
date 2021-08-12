@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { Result } from "../../components";
-
+import { Result, Navbar } from "../../components";
+import "./style.css";
 const Profile = () => {
-  //   const [user, setUser] = useState("");
-  let user = "humza1997";
+  const [input, setInput] = useState("");
+  const [user, setUser] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let input = e.target.value;
     setUser(input);
   };
 
+  const onChange = (e) => setInput(e.target.value);
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>User</label>
-        <input id='User' type='text' value={user} onChange={(e) => setUser(e.target.value)} />
-        <input type='submit' value='Search' />
-      </form>
+      <Navbar />
+      <div id='form'>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='User'>User</label>
+          <input name='User' id='User' type='text' value={input} onChange={onChange} />
+          <input type='submit' value='Search' />
+        </form>
+      </div>
       <Result user={user} />
-      <p>Heres your profile</p>;
     </div>
   );
 };

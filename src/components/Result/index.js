@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./style.css";
 
 function Result(props) {
   const user = props.user;
   const api = `https://api.github.com/users/${user}/repos`;
   const [repo, setRepo] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchRepos = async () => {
@@ -15,15 +17,21 @@ function Result(props) {
         setError(err.message);
       }
     };
-    fetchRepos();
-  }, []);
+    if (user !== "") {
+      fetchRepos();
+    }
+  }, [user]);
 
   function mapRepo() {
     return repo.map((r) => {
       return (
-        <div>
-          <h1>{r.name}</h1>
-          <p>{r.forks_count}</p>
+        <div id='repoCard'>
+          <h2>{r.name}</h2>
+          <div id='subCard'>
+            <p>Fork Count: {r.forks_count}</p>
+            <p>Stargazer Count: {r.stargazers_count}</p>
+            <p>Watcher Count: {r.watchers_count}</p>
+          </div>
         </div>
       );
     });
